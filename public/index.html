@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>WanderScapes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-brand-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand-container img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    .navbar-inverse .navbar-nav>li>a {
+      color: #f1f1f1;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-inverse .navbar-nav>li>a:hover,
+    .navbar-inverse .navbar-nav>.active>a {
+      color: #00ffcc;
+      background-color: transparent;
+    }
+
+    .navbar-brand-container img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    /* Carousel */
+    .carousel-inner>.item>img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .carousel-caption h2 {
+      color: #00ffd5;
+      font-weight: bold;
+      text-shadow: 1px 1px 6px #000;
+    }
+
+    /* Popular Destinations */
+    .categories-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 15px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .categories-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 255, 213, 0.3);
+    }
+
+    .categories-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .categories-card h3 {
+      color: #00ffd5;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    /* Image & Description Section */
+    .container .img-rounded {
+      box-shadow: 0 4px 20px rgba(0, 255, 213, 0.2);
+      border-radius: 20px;
+    }
+
+    #font1 {
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    /* Contact */
+    .contact-section {
+      margin-top: 50px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    h1.typing {
+      font-size: 40px;
+      font-weight: 700;
+      color: #00ffd5;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    #font1 {
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 16px;
+      color: #f0f0f0;
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    #footer1 {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      margin-top: 50px;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #footer1 h2 {
+      color: #00ffd5;
+      font-weight: 600;
+    }
+
+    #footer1 a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+    }
+
+    #footer1 a:hover {
+      color: #00ffd5;
+    }
+
+    #footer1 i {
+      margin-right: 10px;
+      color: #00ffd5;
+    }
+
+    /* Responsive Fixes */
+    @media (max-width: 768px) {
+      .carousel-inner>.item>img {
+        height: 300px;
+      }
+
+      .typing {
+        font-size: 24px;
+      }
+
+      .categories-card img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu1">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand-container">
+          <a class="navbar-brand" href="index.html">WanderScapes</a>
+        </div>
+      </div>
+      <div id="menu1" class="collaps navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+          <li><a href="#about"><i class="fa fa-info-circle"></i> About</a></li>
+          <li><a href="categories.html"><i class="fa fa-bars"></i> Categories</a></li>
+          <li><a href="#contact"><i class="fa fa-envelope"></i> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="carousel1" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel1" data-slide-to="1"></li>
+      <li data-target="#carousel1" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="img/car1.jpg" alt="Image-1" id="img" />
+        <div class="carousel-caption">
+          <h2 id="font1">Surreal Heights</h2>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/car2.jpg" alt="Image-1" id="img" />
+        <div class="carousel-caption">
+          <h2 id="font1">Waves & Whispers</h2>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/car3.jpg" alt="Image-1" id="img" />
+        <div class="carousel-caption">
+          <h2 id="font1">Timeless Trails</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top: 40px;">
+    <h2 class="text-center"
+      style="margin-bottom: 30px; font-size: 36px; color: #1a73e8; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Hotspots
+      to Explore</h2>
+    <div id="destinations" class="row"></div>
+  </div>
+
+  <script>
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('destinations');
+        data.forEach(dest => {
+          const col = document.createElement('div');
+          col.className = 'col-sm-6 col-md-4';
+
+          const card = document.createElement('div');
+          card.className = 'categories-card';
+
+          card.innerHTML = `
+          <img src="${dest.image}" alt="${dest.name}">
+          <h3 style="color:#0077b6; font-weight:bold; font-size: 24px;">${dest.name}</h3>
+          <p style="font-size: 15px;">${dest.description}</p>
+        `;
+
+          col.appendChild(card);
+          container.appendChild(col);
+        });
+      })
+      .catch(err => {
+        console.error("Fetch error:", err);
+        document.getElementById('destinations').innerHTML = "<p style='color:red;'>Failed to load destinations.</p>";
+      });
+  </script>
+
+  <br>
+
+  <div class="container">
+    <h1 class="text-center"
+      style="margin-bottom: 30px; font-size: 36px; color: #1a73e8; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Escape the
+      Usual</h1>
+    <div class="col-sm-5">
+      <div style="align-items: center; margin-top: 6.66vh;">
+        <img src="img/logo.png" style="width:100%;height:300px;" class="img-rounded" />
+      </div>
+    </div>
+    <div class="col-sm-7" id="about">
+      <h2 id="font1">WanderScapes</h2>
+      <p>
+        Not just places. Experiences.
+        WanderScapes is built for the curious heart — the ones who crave not just a view, but a feeling. We uncover
+        India's natural wonders, from tranquil beaches and alpine trails to wild green escapes you won’t find in tourist
+        brochures.
+        <br> <br>
+        🔍 Why WanderScapes?<br>
+        🧭 We spotlight soulful travel spots — hidden, humble, and breathtaking <br>
+        📷 We share stories through scenery, not sales pitches <br>
+        🌱 We believe travel is less about checklists, more about connection <br>
+        <br>
+        WanderScapes isn’t your typical guide. It’s a curated escape for modern explorers, storytellers, and dreamers.
+        Where you’re going? That’s up to you. We’re just here to spark the journey.
+
+        Let the world unfold, one WanderScape at a time.
+      </p>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="container contact-section" id="contact">
+    <h1 class="text-center" style="color: white; font-family: 'Oswald', sans-serif;">Contact Us</h1>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <form>
+          <div class="form-group">
+            <label for="name" style="color: white;">Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="email" style="color: white;">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="subject" style="color: white;">Subject</label>
+            <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+          </div>
+          <div class="form-group">
+            <label for="message" style="color: white;">Message</label>
+            <textarea class="form-control" id="message" rows="5" placeholder="Enter your message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" id="footer1">
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <h2 style="color: #000000;">About</h2>
+        <p style="color: #000000;">
+          Crafted with caffeine and code by your friendly neighbourhood developer,<br>
+          Aritra Chattopadhyay – currently surviving 3rd year CSE at GNIT.
+        </p>
+      </div>
+      <div class="col-sm-4 text-center">
+        <h2 style="color: #000000;">Explore</h2>
+        <p>
+          <i class="fa fa-home" style="color: #000000;"></i>
+          <a href="index.html" style="color: #000000;">Home</a>
+        </p>
+        <p>
+          <i class="fa fa-info-circle" style="color: #000000;"></i>
+          <a href="#about" style="color: #000000;">About</a>
+        </p>
+        <p>
+          <i class="fa fa-bars" style="color: #000000;"></i>
+          <a href="categories.html" style="color: #000000;">Categories</a>
+        </p>
+        <p>
+          <i class="fa fa-envelope" style="color: #000000;"></i>
+          <a href="#contact" style="color: #000000;">Contact</a>
+        </p>
+      </div>
+      <div class="col-sm-4 text-center">
+        <h2 style="color: #000000;">Reach Out to Us</h2>
+        <p>
+          <span>
+            <a href="https://www.instagram.com/its_da_hooman?igsh=MWxpczc1dGN2c29oNQ==">
+              <i class="fa-brands fa-instagram fa-2x" style="color: #000000;"></i></a>
+          </span>
+          <span>
+            <a
+              href="https://www.linkedin.com/in/aritra-chattopadhyay-5198492a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+              <i class="fa-brands fa-linkedin fa-2x" style="color: #000000;"></i></a>
+          </span>
+          <span>
+            <a href="https://www.facebook.com/share/1HWShBXbs7/">
+              <i class="fa-brands fa-facebook fa-2x" style="color: #000000; "></i></a>
+          </span>
+          <span>
+            <a href="https://x.com/AritraChattopa4?t=iDmda_Fv359JJntdUkzuUA&s=09">
+              <i class="fa-brands fa-twitter fa-2x" style="color: #000000;"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

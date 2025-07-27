@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Categories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Oswald', sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      color: #f1f1f1;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-brand-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand-container img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    .navbar-inverse .navbar-nav>li>a {
+      color: #f1f1f1;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-inverse .navbar-nav>li>a:hover,
+    .navbar-inverse .navbar-nav>.active>a {
+      color: #00ffcc;
+      background-color: transparent;
+    }
+
+    /* Header */
+    .typing {
+      font-size: 2.5em;
+      margin: 20px 0 40px;
+      animation: blink 1s step-end infinite;
+      color: #00ffd5;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* Destination Cards */
+    .categories-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 15px 0;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .categories-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 30px rgba(0, 255, 204, 0.4);
+    }
+
+    .categories-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .categories-card h3 {
+      font-size: 1.5em;
+      color: #00ffcc;
+    }
+
+    .categories-card p {
+      color: #ccc;
+    }
+
+    /* Footer */
+    #footer1 {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      margin-top: 50px;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #footer1 h2 {
+      color: #00ffd5;
+      font-weight: 600;
+    }
+
+    #footer1 a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+    }
+
+    #footer1 a:hover {
+      color: #00ffd5;
+    }
+
+    #footer1 i {
+      margin-right: 10px;
+      color: #00ffd5;
+    }
+
+    /* Responsive */
+    @media (max-width: 767px) {
+      .categories-card img {
+        height: 150px;
+      }
+
+      .typing {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu1">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand-container">
+          <a class="navbar-brand" href="index.html">WanderScapes</a>
+        </div>
+      </div>
+      <div id="menu1" class="collaps navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+          <li><a href="index.html#about"><i class="fa fa-info-circle"></i> About</a></li>
+          <li class="active"><a href="Categories.html"><i class="fa fa-bars"></i> Categories</a></li>
+          <li><a href="index.html#contact"><i class="fa fa-envelope"></i> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container text-center">
+    <h1 class="typing">Wander Through India</h1>
+    <div class="row" id="destination-list"></div>
+  </div>
+
+  <script>
+    fetch('/api/destinations')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('destination-list');
+        if (!data.length) {
+          container.innerHTML = "<p>No destinations found.</p>";
+          return;
+        }
+        data.forEach(dest => {
+          const col = document.createElement('div');
+          col.className = 'col-sm-4';
+
+          col.innerHTML = `
+          <div class="categories-card">
+            <img src="${dest.image}" alt="${dest.name}" />
+            <h3>${dest.name}</h3>
+            <p>${dest.description}</p>
+          </div>
+        `;
+          container.appendChild(col);
+        });
+      })
+      .catch(err => {
+        console.error("Fetch failed:", err);
+        document.getElementById('destination-list').innerHTML = "<p style='color:red;'>Failed to load destinations.</p>";
+      });
+  </script>
+  <div class="container-fluid" id="footer1">
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <h2 style="color: #000000;">About</h2>
+        <p style="color: #000000;">
+          Crafted with caffeine and code by your friendly neighbourhood developer,<br>
+          Aritra Chattopadhyay – currently surviving 3rd year CSE at GNIT.
+        </p>
+      </div>
+
+      <div class="col-sm-4 text-center">
+        <h2 style="color: #000000;">Explore</h2>
+        <p>
+          <i class="fa fa-home" style="color: #000000;"></i>
+          <a href="index.html" style="color: #000000;">Home</a>
+        </p>
+        <p>
+          <i class="fa fa-info-circle" style="color: #000000;"></i>
+          <a href="index.html#about" style="color: #000000;">About</a>
+        </p>
+        <p>
+          <i class="fa fa-bars" style="color: #000000;"></i>
+          <a href="categories.html" style="color: #000000;">Categories</a>
+        </p>
+        <p>
+          <i class="fa fa-envelope" style="color: #000000;"></i>
+          <a href="index.html#contact" style="color: #000000;">Contact</a>
+        </p>
+      </div>
+      <div class="col-sm-4 text-center">
+        <h2 style="color: #000000;">Reach Out to Us</h2>
+        <p>
+          <span>
+            <a href="https://www.instagram.com/its_da_hooman?igsh=MWxpczc1dGN2c29oNQ==">
+              <i class="fa-brands fa-instagram fa-2x" style="color: #000000;"></i></a>
+          </span>
+          <span>
+            <a
+              href="https://www.linkedin.com/in/aritra-chattopadhyay-5198492a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+              <i class="fa-brands fa-linkedin fa-2x" style="color: #000000;"></i></a>
+          </span>
+          <span>
+            <a href="https://www.facebook.com/share/1HWShBXbs7/">
+              <i class="fa-brands fa-facebook fa-2x" style="color: #000000; "></i></a>
+          </span>
+          <span>
+            <a href="https://x.com/AritraChattopa4?t=iDmda_Fv359JJntdUkzuUA&s=09">
+              <i class="fa-brands fa-twitter fa-2x" style="color: #000000;"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
